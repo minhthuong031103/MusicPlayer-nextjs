@@ -8,6 +8,10 @@ import { BiSearch } from 'react-icons/bi';
 import Button from './Button';
 import { FaUserAlt } from 'react-icons/fa';
 import useAuthModal from '@/hooks/useAuthModal';
+import { useUser } from '@/hooks/useUser';
+import { SupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { toast } from 'react-hot-toast';
 interface HeaderProps {
   children: React.ReactNode;
   className?: string;
@@ -15,9 +19,15 @@ interface HeaderProps {
 
 const Header = function ({ children, className }: HeaderProps) {
   const authModal = useAuthModal();
-
+  const supabaseClient = useSupabaseClient();
   const router = useRouter();
-  const user = null;
+  const { user } = useUser();
+  const handleLogout = async function () {
+    const { error } = await supabaseClient.auth.signOut();
+    router.refresh();
+    if (error) toast.error(error.message);
+    else toast.success('Logged out!');
+  };
   return (
     <>
       <div
@@ -82,7 +92,7 @@ const Header = function ({ children, className }: HeaderProps) {
           <div className="flex justify-between items-center gap-x-4">
             {user ? (
               <div className="flex gap-x-4 items-center">
-                <Button onClick={() => {}} className="bg-white px-6 py-2">
+                <Button onClick={handleLogout} className="bg-white px-6 py-2">
                   Logout
                 </Button>
 
