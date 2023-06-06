@@ -1,5 +1,6 @@
 'use client';
 
+import AuthModal from '@/Components/AuthModal';
 import Modal from '@/Components/Modal';
 import { useEffect, useState } from 'react';
 
@@ -11,6 +12,6 @@ const ModalProvider = function () {
   //we know that we is on client side
   if (!isMounted) return null;
 
-  return <Modal />;
+  return <AuthModal></AuthModal>;
 };
 export default ModalProvider;

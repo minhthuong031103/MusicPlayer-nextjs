@@ -7,12 +7,15 @@ import { HiHome } from 'react-icons/hi';
 import { BiSearch } from 'react-icons/bi';
 import Button from './Button';
 import { FaUserAlt } from 'react-icons/fa';
+import useAuthModal from '@/hooks/useAuthModal';
 interface HeaderProps {
   children: React.ReactNode;
   className?: string;
 }
 
 const Header = function ({ children, className }: HeaderProps) {
+  const authModal = useAuthModal();
+
   const router = useRouter();
   const user = null;
   return (
@@ -94,14 +97,17 @@ const Header = function ({ children, className }: HeaderProps) {
               <>
                 <div>
                   <Button
-                    onClick={() => {}}
+                    onClick={authModal.onOpen}
                     className="bg-transparent text-neutral-300 font-medium"
                   >
                     Sign up
                   </Button>
                 </div>
                 <div>
-                  <Button onClick={() => {}} className="bg-white px-6 py-2 ">
+                  <Button
+                    onClick={authModal.onOpen}
+                    className="bg-white px-6 py-2 "
+                  >
                     Log in
                   </Button>
                 </div>
