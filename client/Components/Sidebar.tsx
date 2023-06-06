@@ -7,6 +7,7 @@ import { BiSearch } from 'react-icons/bi';
 import { twMerge } from 'tailwind-merge';
 import Box from './Box';
 import SidebarItem from './SidebarItem';
+import Library from './Library';
 interface SidebarProps {
   children: React.ReactNode;
 }
@@ -50,6 +51,7 @@ const Sidebar = function ({ children }: SidebarProps) {
 
           <Box className="overflow-y-auto h-full">
             {/* <Library songs={songs} */}
+            <Library />
           </Box>
         </div>
 
