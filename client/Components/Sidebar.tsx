@@ -8,11 +8,13 @@ import { twMerge } from 'tailwind-merge';
 import Box from './Box';
 import SidebarItem from './SidebarItem';
 import Library from './Library';
+import { Song } from '@/types';
 interface SidebarProps {
   children: React.ReactNode;
+  songs: Song[];
 }
 
-const Sidebar = function ({ children }: SidebarProps) {
+const Sidebar = function ({ children, songs }: SidebarProps) {
   const pathname = usePathname();
   const routes = useMemo(
     function () {
@@ -50,8 +52,7 @@ const Sidebar = function ({ children }: SidebarProps) {
           </Box>
 
           <Box className="overflow-y-auto h-full">
-            {/* <Library songs={songs} */}
-            <Library />
+            <Library songs={songs} />
           </Box>
         </div>
 
