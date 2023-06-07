@@ -1,7 +1,7 @@
 'use client';
 
-import LikeButton from '@/Components/LikeButton';
-import MediaItem from '@/Components/MediaItem';
+import LikeButton from '@/components/LikeButton';
+import MediaItem from '@/components/MediaItem';
 import { useUser } from '@/hooks/useUser';
 import { Song } from '@/types';
 import { useRouter } from 'next/navigation';

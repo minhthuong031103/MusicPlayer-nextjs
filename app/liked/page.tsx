@@ -1,4 +1,4 @@
-import Header from '@/Components/Header';
+import Header from '@/components/Header';
 import getLikedSongs from '@/actions/getLikedSongs';
 import Image from 'next/image';
 import LikedContent from './components/LikedContent';

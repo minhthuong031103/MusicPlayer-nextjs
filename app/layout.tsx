@@ -1,4 +1,4 @@
-import Sidebar from '@/Components/Sidebar';
+import Sidebar from '@/components/Sidebar';
 import './globals.css';
 import { Figtree } from 'next/font/google';
 import SupabaseProvider from '@/providers/SupabaseProvider';
@@ -6,7 +6,7 @@ import UserProvider from '@/providers/UserProvider';
 import ModalProvider from '@/providers/ModalProvider';
 import ToasterProvider from '@/providers/ToasterProvider';
 import getSongsByUserId from '@/actions/getSongsByUserId';
-import Player from '@/Components/Player';
+import Player from '@/components/Player';
 
 const font = Figtree({ subsets: ['latin'] });
 
