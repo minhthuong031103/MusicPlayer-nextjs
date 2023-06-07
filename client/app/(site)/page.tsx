@@ -2,6 +2,7 @@ import ListItem from '@/Components/ListItem';
 import Header from '../../Components/Header';
 import getSongs from '@/actions/getSongs';
 import PageContent from '@/Components/PageContent';
+
 export const revalidate = 0;
 
 export default async function Home() {
