@@ -2,7 +2,7 @@ import ListItem from '@/components/ListItem';
 import Header from '@/components/Header';
 import getSongs from '@/actions/getSongs';
 import PageContent from '@/components/PageContent';
-
+import Player from '@/components/Player';
 export const revalidate = 0;
 
 export default async function Home() {

@@ -50,12 +50,13 @@ const UploadModal = function () {
       //Upload song to supabase
       const { data: songData, error: songError } = await supabaseClient.storage
         .from('songs')
-        .upload(`song-${values.title}-${uniqueID}`, songFile, {
+        .upload(`song-${uniqueID}-${uniqueID}`, songFile, {
           cacheControl: '3600',
           upsert: false,
         });
       if (songError) {
         setIsLoading(false);
+        console.log(songError?.message);
         return toast.error('Failed to upload song');
       }
 
@@ -64,7 +65,7 @@ const UploadModal = function () {
       const { data: imageData, error: imageError } =
         await supabaseClient.storage
           .from('images')
-          .upload(`image-${values.title}-${uniqueID}`, imageFile, {
+          .upload(`image-${uniqueID}-${uniqueID}`, imageFile, {
             cacheControl: '3600',
             upsert: false,
           });

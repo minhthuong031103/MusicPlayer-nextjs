@@ -160,7 +160,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
             justify-center 
             items-center 
             w-full 
-            max-w-[722px] 
+            max-w-[700px] 
             gap-x-6
           "
       >

@@ -35,7 +35,7 @@ const Library = function ({ songs }: LibraryProps) {
         />
       </div>
 
-      <div className="flex flex-col gap-y-2 mt-4 px-3">
+      <div className="flex flex-col gap-y-2 mt-4 px-3 mb-20">
         {songs.map(function (song) {
           return <MediaItem key={song.id} data={song} />;
         })}

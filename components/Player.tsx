@@ -20,7 +20,8 @@ const Player = () => {
         fixed 
         bottom-0 
         bg-black 
-        w-full 
+        w-full
+   
         py-2 
         h-[80px] 
         px-4
