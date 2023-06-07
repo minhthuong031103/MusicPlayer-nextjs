@@ -1,5 +1,5 @@
 import ListItem from '@/Components/ListItem';
-import Header from '../../Components/Header';
+import Header from '../Components/Header';
 import getSongs from '@/actions/getSongs';
 import PageContent from '@/Components/PageContent';
 
