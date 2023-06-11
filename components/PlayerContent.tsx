@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { BsPauseFill, BsPlayFill } from 'react-icons/bs';
 import { HiSpeakerWave, HiSpeakerXMark } from 'react-icons/hi2';
 import { AiFillStepBackward, AiFillStepForward } from 'react-icons/ai';
-
+import { FaRandom } from 'react-icons/fa';
 import { Song } from '@/types';
 import usePlayer from '@/hooks/usePlayer';
 
@@ -22,7 +22,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   const player = usePlayer();
   const [volume, setVolume] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
-
+  const [isRandom, setIsRandom] = useState('false');
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
@@ -30,9 +30,18 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     if (player.ids.length === 0) {
       return;
     }
+    var nextSong;
+    if (sessionStorage.getItem('isRandom') === 'true') {
+      const filteredIds = player.ids.filter((id) => id !== player.activeId);
+      const randomIndex = Math.floor(Math.random() * filteredIds.length);
 
-    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
-    const nextSong = player.ids[currentIndex + 1];
+      // Access the random element using the random index
+      const randomId = player.ids[randomIndex];
+      nextSong = player.ids[player.ids.indexOf(randomId)];
+    } else {
+      const currentIndex = player.ids.findIndex((id) => id === player.activeId);
+      nextSong = player.ids[currentIndex + 1];
+    }
 
     if (!nextSong) {
       return player.setId(player.ids[0]);
@@ -55,7 +64,24 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
 
     player.setId(previousSong);
   };
-
+  const randomHandle = function () {
+    if (player.ids.length === 0) {
+      return;
+    }
+    const isRandom = sessionStorage.getItem('isRandom');
+    if (isRandom) {
+      if (isRandom == 'false') {
+        sessionStorage.setItem('isRandom', 'true');
+        setIsRandom('true');
+      } else {
+        sessionStorage.setItem('isRandom', 'false');
+        setIsRandom('false');
+      }
+    } else {
+      sessionStorage.setItem('isRandom', 'true');
+      setIsRandom('true');
+    }
+  };
   const [play, { pause, sound }] = useSound(
     songUrl, //this hook dont change when songurl change, so have to destroy entire playercontent
     {
@@ -72,7 +98,9 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
 
   useEffect(() => {
     sound?.play();
-
+    if (sessionStorage.getItem('isRandom') === 'true') {
+      setIsRandom('true');
+    }
     return () => {
       sound?.unload();
     };
@@ -97,9 +125,8 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 h-full">
       <div className="flex w-full justify-start">
-        <div className="flex items-center gap-x-4">
+        <div className="flex items-center gap-x-4 overflow-hidden">
           <MediaItem data={song} />
-          <LikeButton songId={song.id} />
         </div>
       </div>
 
@@ -113,7 +140,14 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
             items-center
           "
       >
-        {' '}
+        <LikeButton songId={song.id} />
+        <FaRandom
+          size={24}
+          className={`cursor-pointer ${
+            isRandom === 'true' ? `text-green-400` : ''
+          } `}
+          onClick={randomHandle}
+        ></FaRandom>
         <AiFillStepBackward
           onClick={onPlayPrevious}
           size={30}
@@ -203,7 +237,15 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
       </div>
 
       <div className="hidden md:flex w-full justify-end pr-2">
-        <div className="flex items-center gap-x-2 w-[120px]">
+        <div className="flex items-center gap-x-2 w-[200px]">
+          <LikeButton songId={song.id} />
+          <FaRandom
+            size={30}
+            className={`cursor-pointer ${
+              isRandom === 'true' ? `text-green-400` : ''
+            } `}
+            onClick={randomHandle}
+          ></FaRandom>
           <VolumeIcon
             onClick={toggleMute}
             className="cursor-pointer"
